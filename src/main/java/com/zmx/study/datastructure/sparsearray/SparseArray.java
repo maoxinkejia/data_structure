@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -108,9 +109,9 @@ public class SparseArray {
             for (int[] rows : sparseArr) {
                 for (int col : rows) {
                     String s = col + "\t";
-                    fos.write(s.getBytes("UTF-8"));
+                    fos.write(s.getBytes(StandardCharsets.UTF_8));
                 }
-                fos.write("\r\n".getBytes("UTF-8"));
+                fos.write("\r\n".getBytes(StandardCharsets.UTF_8));
             }
 
             fos.flush();

@@ -2,30 +2,25 @@ package com.zmx.study.datastructure.queue;
 
 import java.util.Scanner;
 
-/**
- * 数组模拟队列
- */
-
-
-public class ArrayQueueDemo {
+public class CircleArrayQueueDemo {
     // 数组大小
     private int maxSize;
-    // 头指针 指向队列头部的前一个位置，初始-1
+    // 头指针，指向队列的第一个元素，也就是说arr[front]，初始值0
     private int front;
-    // 尾指针 指向队列尾部，无数据时初始为-1
+    // 尾指针，指向队列最后一个元素的后一个位置，相当于空出来一个位置，初始为0
     private int rear;
-    // 用来存放数据的数组
+    // 用于存放数据的数组
     private int[] arr;
 
-    private ArrayQueueDemo(int maxSize) {
+    private CircleArrayQueueDemo(int maxSize) {
         this.maxSize = maxSize;
         arr = new int[maxSize];
-        rear = -1;
-        front = -1;
     }
 
     public static void main(String[] args) {
-        ArrayQueueDemo queue = new ArrayQueueDemo(3);
+        System.out.println("环形队列");
+
+        CircleArrayQueueDemo queue = new CircleArrayQueueDemo(3);
         char key;
         Scanner scanner = new Scanner(System.in);
         boolean loop = true;
@@ -73,57 +68,68 @@ public class ArrayQueueDemo {
         }
 
         System.out.println("程序已经退出");
+
     }
 
-    // 队列是否满
+    // 判断队列是否满
     private boolean isFull() {
-        return rear == maxSize - 1;
+        return (rear + 1) % maxSize == front;
     }
 
-    // 队列是否空
+    // 判断队列是否空
     private boolean isEmpty() {
         return rear == front;
     }
 
-    // 添加数据到队列
+    // 添加一个元素
     private void addQueue(int num) {
         if (isFull()) {
             System.out.println("队列已满，无法添加");
             return;
         }
 
-        rear++;
+        // 直接将数据加入
         arr[rear] = num;
+        // 将rear后移，必须考虑取模
+        rear = (rear + 1) % maxSize;
     }
 
-    // 出队一个数据
+    // 取出一个元素
     private int getQueue() {
         if (isEmpty()) {
             throw new RuntimeException("队列为空，不能获取");
         }
 
-        front++;
-        return arr[front];
+        //1.先把当前front对应的值取出来
+        int num = arr[front];
+        //2.front后移
+        front = (front + 1) % maxSize;
+        //3.返回数据
+        return num;
     }
 
-    // 显示所有
+    // 显示队列所有数据
     private void show() {
         if (isEmpty()) {
             System.out.println("队列为空，不能获取");
             return;
         }
-
-        for (int i = 0; i < arr.length; i++) {
-            System.out.printf("arr[%d] = %d\n", i, arr[i]);
+        // 遍历数据时一定是从front开始，遍历个数是front+有效数据的个数
+        for (int i = front; i < front + size(); i++) {
+            System.out.printf("arr[%d] = %d\n", i % maxSize, arr[i % maxSize]);
         }
+    }
+
+    // 有效数据的个数
+    private int size() {
+        return (rear + maxSize - front) % maxSize;
     }
 
     // 显示队列头数据
     private int head() {
         if (isEmpty()) {
-            throw new RuntimeException("队列为空，不能获取");
+            throw new RuntimeException();
         }
-
-        return arr[front + 1];
+        return arr[front];
     }
 }

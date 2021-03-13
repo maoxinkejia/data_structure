@@ -1,5 +1,8 @@
 package com.zmx.study.datastructure.leetcode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CommonQuestion {
     public static void main(String[] args) {
 //        int[] array = new int[]{1, 8, 6, 2, 5, 4, 8, 3, 7};
@@ -28,6 +31,13 @@ public class CommonQuestion {
      * 若目标值在无须的一侧，则需要单独进行查找
      */
     public static int disorderlyArraySearch(int[] nums, int target) {
+        if(nums == null){
+            return -1;
+        }
+        if(nums.length == 1){
+            return nums[0] == target? 0: -1;
+        }
+
         int left = 0;
         int right = nums.length - 1;
         while (left <= right) {
@@ -36,16 +46,27 @@ public class CommonQuestion {
                 return mid;
             }
 
-
-            // 数组的第一个元素比中分元素小，说明左侧是有序数组
-            if (nums[0] < nums[mid]) {
-                if (nums[mid] < target) {
-
+            // 数组的第一个元素比中位数小，说明左侧是有序数组
+            if (nums[0] <= nums[mid]) {
+                // 数组第一位比目标值小 且 目标值比中位数小，左侧数组为有序数组，则右指针左移，抛弃右侧无序数组
+                if (nums[0] <= target && target < nums[mid]) {
+                    right = mid - 1;
+                }
+                // 数组第一位比目标值大 或 目标值比比中位数大，左侧数组为有序数组，则左指针右移，抛弃左侧有序数组
+                else {
+                    left = mid + 1;
                 }
             }
-            // 说明右侧是有序数组
+            // 数组的第一个元素比中位数大，说明右侧是有序数组
             else {
-
+                // 中位数比目标值小 且 目标值比末尾数小，右侧为有序数组，则左指针右移，抛弃左侧无序数组
+                if (nums[mid] < target && target <= nums[nums.length - 1]) {
+                    left = mid + 1;
+                }
+                // 中位数比目标值大 或 目标值比末尾数大，右侧为有序数组，则右指针左移，抛弃右侧有序数组
+                else {
+                    right = mid - 1;
+                }
             }
         }
 
@@ -188,6 +209,11 @@ public class CommonQuestion {
         return sum;
     }
 
+    /**
+     * 此解法核心思想是先获取一个字符，
+     * 若后一个字符比前一个字符大，则前一个字符做减法操作
+     * 若前一个字符比后一个字符大，则做加法操作
+     */
     public static int romanToInt_2(String s) {
         int preNum = getValue(s.charAt(0));
         int sum = 0;

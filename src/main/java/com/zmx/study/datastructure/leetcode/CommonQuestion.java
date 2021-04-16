@@ -1,8 +1,5 @@
 package com.zmx.study.datastructure.leetcode;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CommonQuestion {
     public static void main(String[] args) {
 //        int[] array = new int[]{1, 8, 6, 2, 5, 4, 8, 3, 7};
@@ -31,11 +28,11 @@ public class CommonQuestion {
      * 若目标值在无须的一侧，则需要单独进行查找
      */
     public static int disorderlyArraySearch(int[] nums, int target) {
-        if(nums == null){
+        if (nums == null) {
             return -1;
         }
-        if(nums.length == 1){
-            return nums[0] == target? 0: -1;
+        if (nums.length == 1) {
+            return nums[0] == target ? 0 : -1;
         }
 
         int left = 0;

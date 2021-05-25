@@ -2,8 +2,15 @@ group 'com.zmx.study'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    sourceCompatibility = 1.8
+}
 
-sourceCompatibility = 1.8
+tasks.withType(Javadoc) {
+    options.encoding = 'UTF-8'
+}
+
 
 repositories {
     mavenCentral()

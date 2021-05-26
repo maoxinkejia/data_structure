@@ -30,11 +30,7 @@ public class ArrayStackDemo {
         }
 
         as.list();
-
-
     }
-
-
 }
 
 class ArrayStack {
@@ -67,8 +63,8 @@ class ArrayStack {
     }
 
     // 判断是不是运算符
-    static boolean isOperator(char val) {
-        return val == '+' || val == '-' || val == '*' || val == '/';
+    static boolean isNumber(char val) {
+        return val != '+' && val != '-' && val != '*' && val != '/';
     }
 
     /**

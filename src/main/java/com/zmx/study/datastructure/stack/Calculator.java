@@ -16,12 +16,12 @@ public class Calculator {
             char c = expression.charAt(index++);
 
             // 当前字符是数字
-            if (!ArrayStack.isOperator(c)) {
+            if (ArrayStack.isNumber(c)) {
                 // 当有连续数字时，需要对数字进行拼接
                 tmp.append(c);
 
                 // 如果不是最后一个字符，且，下一个字符也是数字，则保留tmp，继续下一轮的拼接
-                if (index != expression.length() && !ArrayStack.isOperator(expression.charAt(index))) {
+                if (index != expression.length() && ArrayStack.isNumber(expression.charAt(index))) {
                     continue;
                 }
 

@@ -11,7 +11,7 @@ public class SelectorSort {
     private static void selectorSort(int[] arr) {
         for (int i = 0; i < arr.length; i++) {
             int min = arr[i];
-            int minIndex = 0;
+            int minIndex = i;
             for (int j = i; j < arr.length; j++) {
                 if (arr[j] < min) {
                     min = arr[j];
@@ -19,11 +19,11 @@ public class SelectorSort {
                 }
             }
 
-            int tmp = arr[i];
-            arr[i] = min;
-            arr[minIndex] = tmp;
+            if (minIndex != i) {
+                arr[minIndex] = arr[i];
+                arr[i] = min;
+            }
         }
-
         System.out.println(Arrays.toString(arr));
     }
 }

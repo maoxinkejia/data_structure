@@ -1,11 +1,15 @@
 package com.zmx.study.datastructure.sort;
 
-import java.util.Arrays;
+import java.util.stream.IntStream;
 
 public class SelectorSort {
     public static void main(String[] args) {
-        int[] arr = new int[]{15, 3, 9, -1, 10, 12, 5};
+//        int[] arr = new int[]{15, 3, 9, -1, 10, 12, 5};
+        int[] arr = IntStream.range(0, 80000).parallel().map(i -> (int) (Math.random() * 8000000)).toArray();
+
+        long start = System.currentTimeMillis();
         selectorSort(arr);
+        System.out.println("use: " + (System.currentTimeMillis() - start));
     }
 
     private static void selectorSort(int[] arr) {
@@ -24,6 +28,6 @@ public class SelectorSort {
                 arr[i] = min;
             }
         }
-        System.out.println(Arrays.toString(arr));
+//        System.out.println(Arrays.toString(arr));
     }
 }

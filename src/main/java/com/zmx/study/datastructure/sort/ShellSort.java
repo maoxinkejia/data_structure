@@ -1,17 +1,19 @@
 package com.zmx.study.datastructure.sort;
 
 import java.util.Arrays;
-import java.util.stream.IntStream;
 
 public class ShellSort {
     public static void main(String[] args) {
-//        int[] arr = {8, 9, 1, 7, 2, 3, 5, 4, 6, 0};
-        int[] arr = IntStream.range(0, 80000).parallel().map(i -> (int) (Math.random() * 8000000)).toArray();
+        int[] arr = {8, 9, 1, 7, 2, 3, 5, 4, 6, 0};
+//        int[] arr = IntStream.range(0, 80000).parallel().map(i -> (int) (Math.random() * 8000000)).toArray();
 
 //        shellSortByStep(arr);
         long start = System.currentTimeMillis();
-        shellSort(arr);
+//        shellSort(arr);
+        shellSort2(arr);
         System.out.println("use: " + (System.currentTimeMillis() - start));
+
+//        System.out.println(Arrays.toString(arr));
     }
 
     private static void shellSortByStep(int[] arr) {
@@ -70,6 +72,23 @@ public class ShellSort {
                         arr[j + gap] = temp;
                     }
 //                    System.out.println(String.format("gap=%d, j=%d, i=%d, step=%d, res=%s", gap, j, i, j + gap, Arrays.toString(arr)));
+                }
+            }
+        }
+    }
+
+    private static void shellSort2(int[] arr) {
+        for (int gap = arr.length / 2; gap > 0; gap /= 2) {
+            for (int i = gap; i < arr.length; i++) {
+                int j = i;
+                int tmp = arr[j];
+                if (arr[j] < arr[j - gap]) {
+                    while (j - gap >= 0 && tmp < arr[j - gap]) {
+                        arr[j] = arr[j - gap];
+                        j -= gap;
+                    }
+
+                    arr[j] = tmp;
                 }
             }
         }

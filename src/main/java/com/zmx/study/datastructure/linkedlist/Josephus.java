@@ -2,6 +2,7 @@ package com.zmx.study.datastructure.linkedlist;
 
 public class Josephus {
     public static void main(String[] args) {
+        System.out.println();
         CircleSingleLinkedList csl = new CircleSingleLinkedList();
         csl.addBoy(5);
         csl.showBoys();
